@@ -1,5 +1,9 @@
+import { useLocation } from "react-router";
 import "./css/index.css";
-function PlaylistTableCmpt({ playlistData }) {
+function PlaylistTableCmpt() {
+  const location = useLocation();
+  console.log(location);
+  const playlistData = location.state?.data || [];
   return (
     <>
       <div id={"playlist-container"}>
@@ -20,7 +24,7 @@ function PlaylistTableCmpt({ playlistData }) {
           );
         })}
       </div>
-      <button>Download</button>
+      <button disabled={playlistData.length < 1}>Download</button>
     </>
   );
 }
