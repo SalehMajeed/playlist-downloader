@@ -16,9 +16,9 @@ function UserInputCmpt() {
   const HandleDownload = async () => {
     if (playlistAddress.trim() !== "") {
       setLoadingData(true);
-      const playlist_url = encodeURIComponent(playlistAddress.trim());
+      const playlist_url = playlistAddress.trim();
       const fetchedReq = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}/getInfo?playlistAddress=${playlist_url}`
+        `${process.env.REACT_APP_BASE_URL}/get-info?playlistAddress=${playlist_url}`
       );
       const reqData = fetchedReq.data;
       setLoadingData(false);
@@ -31,6 +31,7 @@ function UserInputCmpt() {
 
   return (
     <div>
+      oye
       <input
         type="text"
         placeholder="enter your text"

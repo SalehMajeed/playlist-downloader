@@ -1,0 +1,20 @@
+version: "3"
+services:
+  web:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./backend/node_modules
+      - ./backend:/usr/youtube-playlist-downloader
+  playlist-ui:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend/node_modules
+      - ./frontend:/usr/youtube-playlist-downloader-ui
