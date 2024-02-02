@@ -1,5 +1,6 @@
 import youtube_dl
 import sys
+import json
 
 def get_playlist_info(playlist_url):
     ydl_opts = {
@@ -12,8 +13,10 @@ def get_playlist_info(playlist_url):
         return playlist_info
     
 def print_playlist_info(playlist_info):
-    for each_entry in playlist_info["entries"]:
-        print(each_entry)
+    json_data = json.dumps(playlist_info["entries"])
+    print(json_data)
+    # for each_entry in playlist_info["entries"]:
+        # print(each_entry)
 
 playlist_url = sys.argv[1]
 playlist_info = get_playlist_info(playlist_url)

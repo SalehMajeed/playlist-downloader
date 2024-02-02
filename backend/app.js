@@ -12,7 +12,7 @@ app.get("/getInfo", async (req, res) => {
 
   try {
     const playlistAddress =
-      "https://www.youtube.com/watch?v=cF2lQ_gZeA8&list=PLC3y8-rFHvwisvxhZ135pogtX7_Oe3Q3A";
+      "https://www.youtube.com/playlist?list=PLta1A4corVqsTLierHoDrPxlnSSyoZ8J_";
 
     const options = {
       mode: "text",
@@ -23,7 +23,8 @@ app.get("/getInfo", async (req, res) => {
     };
 
     const result = await PythonShell.run("index.py", options);
-    res.send(result);
+    const jsonData = JSON.parse(result);
+    res.send({data:jsonData});
   } catch (err) {
     res.send(err);
   }

@@ -16,9 +16,7 @@ function App() {
           `${process.env.REACT_APP_BASE_URL}/getInfo?playlistAddress=${playlist_url}`
         );
         const reqData = fetchedReq.data;
-
-        console.log(reqData);
-        setPlaylistData([]);
+        setPlaylistData(reqData.data);
       }
     };
 
