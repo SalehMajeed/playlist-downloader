@@ -7,7 +7,6 @@ function UserInputCmpt({setPlaylistAddress}) {
   const HandleInput = (event) =>{
     const data = event.target.value
     setUserInput(data);
-    console.log(userInput);
   };
 
   const HandleDownload = () =>{

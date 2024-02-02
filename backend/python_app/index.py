@@ -1,6 +1,5 @@
 import youtube_dl
-
-playlist_url = "https://www.youtube.com/playlist?list=PL4cUxeGkcC9jx2TTZk3IGWKSbtugYdrlu"
+import sys
 
 def get_playlist_info(playlist_url):
     ydl_opts = {
@@ -13,9 +12,10 @@ def get_playlist_info(playlist_url):
         return playlist_info
     
 def print_playlist_info(playlist_info):
-    for index, each_entry in enumerate(playlist_info["entries"], start=1):
-        print(f"{each_entry['title']}")
-        print(f"{index}")
-   
+    for each_entry in playlist_info["entries"]:
+        print(each_entry)
+
+playlist_url = sys.argv[1]
 playlist_info = get_playlist_info(playlist_url)
 print_playlist_info(playlist_info)
+    
