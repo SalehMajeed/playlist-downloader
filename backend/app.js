@@ -12,7 +12,7 @@ app.get("/getInfo", async (req, res) => {
 
   try {
     const playlistAddress =
-      "https://www.youtube.com/playlist?list=PLta1A4corVqsTLierHoDrPxlnSSyoZ8J_";
+      "https://www.youtube.com/watch?v=cF2lQ_gZeA8&list=PLC3y8-rFHvwisvxhZ135pogtX7_Oe3Q3A";
 
     const options = {
       mode: "text",
