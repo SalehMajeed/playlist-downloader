@@ -7,9 +7,10 @@ const app = express();
 
 app.use(cors());
 
-app.get("/getInfo", async (req, res) => {
-  // const playlistAddress = req.query.playlistAddress;
-
+app.get("/say-hello", (req, res) => {
+  res.send("Great")
+})
+app.get("/get-info", async (req, res) => {
   try {
     const playlistAddress =
       "https://www.youtube.com/playlist?list=PLta1A4corVqsTLierHoDrPxlnSSyoZ8J_";
