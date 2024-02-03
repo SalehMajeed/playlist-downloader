@@ -18,7 +18,7 @@ function UserInputCmpt() {
       setLoadingData(true);
       const playlist_url = userInput.trim();
       const fetchedReq = await fetchMetadatalist(
-        `/get-info?playlistAddress=${playlist_url}`
+        `/playlist/get-metadata-list?playlistAddress=${playlist_url}`
       );
       const reqData = fetchedReq.data;
       setLoadingData(false);
