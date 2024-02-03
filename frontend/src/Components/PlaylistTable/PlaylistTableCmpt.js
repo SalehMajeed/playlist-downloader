@@ -1,8 +1,8 @@
 import { useLocation } from "react-router";
 import "./css/index.css";
+import { convertIntoTimeLine } from "../../Utils";
 function PlaylistTableCmpt() {
   const location = useLocation();
-  console.log(location);
   const playlistData = location.state?.data || [];
   return (
     <>
@@ -16,9 +16,7 @@ function PlaylistTableCmpt() {
               <li>{id + 1}</li>
               <li>{playlistState.title}</li>
               <li>
-                {playlistState.duration / 60}min and{" "}
-                {playlistState.duration % 60}
-                sec
+                {convertIntoTimeLine(playlistState.duration)}
               </li>
             </ul>
           );
