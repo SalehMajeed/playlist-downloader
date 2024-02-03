@@ -12,4 +12,4 @@ RUN npm install
 COPY ./ ./
 
 RUN npm install -g pm2
-CMD ["pm2-runtime", "app.js", "--watch", "--json", "--silent"]
+CMD ["pm2-runtime", "server.js", "--watch", "--json", "--silent"]
