@@ -1,35 +1,18 @@
 import express from "express";
 import cors from "cors";
-import { PythonShell } from "python-shell";
+import routes from "./routes/index.js";
+import "dotenv/config.js";
 
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 const app = express();
 
 app.use(cors());
 
 app.get("/say-hello", (req, res) => {
-  res.send("Great")
-})
-app.get("/get-info", async (req, res) => {
-  try {
-    const playlistAddress =
-      "https://www.youtube.com/playlist?list=PLta1A4corVqsTLierHoDrPxlnSSyoZ8J_";
-
-    const options = {
-      mode: "text",
-      pythonPath: "python3",
-      pythonOptions: ["-u"],
-      scriptPath: "python_app",
-      args: [playlistAddress],
-    };
-
-    const result = await PythonShell.run("index.py", options);
-    const jsonData = JSON.parse(result);
-    res.send({data:jsonData});
-  } catch (err) {
-    res.send(err);
-  }
+  res.send("Great");
 });
+
+app.use("/playlist", routes.playListRoute);
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
