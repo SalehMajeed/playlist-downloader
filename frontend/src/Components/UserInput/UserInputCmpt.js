@@ -1,31 +1,29 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router";
+import ROUTES from "../../Constants/routes";
+import { fetchMetadatalist } from "./api";
 
 function UserInputCmpt() {
   const [userInput, setUserInput] = useState("");
   const [loadingData, setLoadingData] = useState(false);
-  const [playlistAddress, setPlaylistAddress] = useState("");
   const navigate = useNavigate();
 
   const HandleInput = (event) => {
-    const data = event.target.value;
-    setUserInput(data);
+    const inputValue = event.target.value;
+    setUserInput(inputValue);
   };
 
   const HandleDownload = async () => {
-    if (playlistAddress.trim() !== "") {
+    if (userInput.trim() !== "") {
       setLoadingData(true);
-      const playlist_url = playlistAddress.trim();
-      const fetchedReq = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}/get-info?playlistAddress=${playlist_url}`
+      const playlist_url = userInput.trim();
+      const fetchedReq = await fetchMetadatalist(
+        `/get-info?playlistAddress=${playlist_url}`
       );
       const reqData = fetchedReq.data;
       setLoadingData(false);
-      navigate("/download-list", { state: { data: reqData.data } });
+      navigate(ROUTES.SHOW_METADATA_LIST, { state: { data: reqData } });
     }
-
-    setPlaylistAddress(userInput);
     setUserInput("");
   };
 
@@ -42,7 +40,6 @@ function UserInputCmpt() {
       <button onClick={HandleDownload} disabled={loadingData}>
         Get Your Playlist
       </button>
-
       {loadingData && <h1>Loading....</h1>}
     </div>
   );
