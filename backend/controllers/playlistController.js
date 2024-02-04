@@ -4,4 +4,8 @@ function getPlaylistController(req, res) {
   services.playlistService.getPlaylistService(req, res);
 }
 
-export default { getPlaylistController };
+function getDownloadPlaylistController(req, res) {
+  services.playlistService.getDownloadPlaylistService(req, res);
+}
+
+export default { getPlaylistController, getDownloadPlaylistController };

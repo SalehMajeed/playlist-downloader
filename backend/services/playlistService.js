@@ -13,7 +13,7 @@ async function getPlaylistService(data, res) {
 
     const options = {
       mode: "text",
-      pythonPath: "python3",
+      pythonPath: "python",
       pythonOptions: ["-u"],
       scriptPath: backendPath,
       args: [playlistAddress],
@@ -28,4 +28,10 @@ async function getPlaylistService(data, res) {
   }
 }
 
-export default { getPlaylistService };
+async function getDownloadPlaylistService(req, res) {
+  console.log(req.body);
+
+  res.status(200).json(req.body);
+}
+
+export default { getPlaylistService, getDownloadPlaylistService };

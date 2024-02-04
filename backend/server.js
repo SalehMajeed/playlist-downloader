@@ -6,7 +6,8 @@ import "dotenv/config.js";
 const PORT = process.env.PORT || 8080;
 const app = express();
 
-app.use(cors());
+app.use(cors({ origin: ["*"] }));
+app.use(express.json());
 
 app.get("/say-hello", (req, res) => {
   res.send("Great");
