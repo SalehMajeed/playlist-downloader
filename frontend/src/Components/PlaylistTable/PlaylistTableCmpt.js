@@ -1,28 +1,59 @@
 import { useLocation } from "react-router";
 import "./css/index.css";
 import { convertIntoTimeLine } from "../../Utils";
+import { useState } from "react";
+
 function PlaylistTableCmpt() {
   const location = useLocation();
   const playlistData = location.state?.data || [];
+  const [selectedVideos, setSelectedVideos] = useState([]);
+
+  function selectVideo(e) {
+    const url = e.target.dataset.url;
+
+    if (e.target.checked) {
+      setSelectedVideos((videos) => [...videos, url]);
+    } else {
+      setSelectedVideos((videos) => videos.filter((video) => video !== url));
+    }
+  }
+
+  function dataToDownload(e) {
+    e.preventDefault();
+    console.log(selectedVideos);
+  }
+
+  function downloadAll(e) {
+    e.preventDefault();
+
+    const allUrls = playlistData.map((video) => video.url);
+
+    console.log(allUrls);
+  }
+
+  // console.log(playlistData);
   return (
     <>
       <div id={"playlist-container"}>
-        {playlistData.map((playlistState, id) => {
-          return (
-            <ul key={id}>
-              <li>
-                <input type="checkbox" />
+        <ul>
+          {playlistData.map((playlistState, id) => {
+            return (
+              <li key={playlistState.id} onChange={selectVideo}>
+                <span>
+                  <input type="checkbox" data-url={playlistState.url} />
+                </span>
+                <span>{id + 1}</span>
+                <span>{playlistState.title}</span>
+                <span>{convertIntoTimeLine(playlistState.duration)}</span>
               </li>
-              <li>{id + 1}</li>
-              <li>{playlistState.title}</li>
-              <li>
-                {convertIntoTimeLine(playlistState.duration)}
-              </li>
-            </ul>
-          );
-        })}
+            );
+          })}
+        </ul>
       </div>
-      <button disabled={playlistData.length < 1}>Download</button>
+      <button disabled={selectedVideos.length === 0} onClick={dataToDownload}>
+        Download
+      </button>
+      <button onClick={downloadAll}>Download All</button>
     </>
   );
 }
