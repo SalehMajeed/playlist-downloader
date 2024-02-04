@@ -8,6 +8,7 @@ function PlaylistTableCmpt() {
   const playlistData = location.state?.data || [];
   console.log(playlistData);
   const itemsPerPage = 10;
+  console.log();
   const [currentPage, setCurrentPage] = useState(1);
 
   const handlePrevious = () => {
