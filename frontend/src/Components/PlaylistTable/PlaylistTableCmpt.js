@@ -1,13 +1,31 @@
+import { useState } from "react";
 import { useLocation } from "react-router";
 import "./css/index.css";
 import { convertIntoTimeLine } from "../../Utils";
-import { useState } from "react";
 import { download } from "../UserInput/api";
 
 function PlaylistTableCmpt() {
   const location = useLocation();
   const playlistData = location.state?.data || [];
   const [selectedVideos, setSelectedVideos] = useState([]);
+
+  const itemsPerPage = 10;
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const handlePrevious = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const handleNext = () => {
+    if (currentPage < Math.ceil(playlistData.length / itemsPerPage)) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = Math.min(startIndex + itemsPerPage, playlistData.length);
 
   function selectVideo(e) {
     const url = e.target.dataset.url;
@@ -25,8 +43,7 @@ function PlaylistTableCmpt() {
     const data = await download("/download", selectedVideos);
 
     console.log(data);
-
-    // console.log(selectedVideos);
+    console.log(selectedVideos);
   }
 
   function downloadAll(e) {
@@ -37,24 +54,36 @@ function PlaylistTableCmpt() {
     console.log(allUrls);
   }
 
-  // console.log(playlistData);
   return (
     <>
       <div id={"playlist-container"}>
         <ul>
-          {playlistData.map((playlistState, id) => {
+          {playlistData.slice(startIndex, endIndex).map((playlistState, id) => {
             return (
               <li key={playlistState.id} onChange={selectVideo}>
                 <span>
                   <input type="checkbox" data-url={playlistState.url} />
                 </span>
-                <span>{id + 1}</span>
+                <span>{id + startIndex + 1}</span>
                 <span>{playlistState.title}</span>
                 <span>{convertIntoTimeLine(playlistState.duration)}</span>
               </li>
             );
           })}
         </ul>
+      </div>
+      <div>
+        <button onClick={handlePrevious} disabled={currentPage === 1}>
+          Previous
+        </button>
+        <button
+          onClick={handleNext}
+          disabled={
+            currentPage === Math.ceil(playlistData.length / itemsPerPage)
+          }
+        >
+          Next
+        </button>
       </div>
       <button disabled={selectedVideos.length === 0} onClick={dataToDownload}>
         Download
