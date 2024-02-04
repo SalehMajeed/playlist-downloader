@@ -2,6 +2,7 @@ import { useLocation } from "react-router";
 import "./css/index.css";
 import { convertIntoTimeLine } from "../../Utils";
 import { useState } from "react";
+import { download } from "../UserInput/api";
 
 function PlaylistTableCmpt() {
   const location = useLocation();
@@ -18,9 +19,14 @@ function PlaylistTableCmpt() {
     }
   }
 
-  function dataToDownload(e) {
+  async function dataToDownload(e) {
     e.preventDefault();
-    console.log(selectedVideos);
+
+    const data = await download("/download", selectedVideos);
+
+    console.log(data);
+
+    // console.log(selectedVideos);
   }
 
   function downloadAll(e) {
