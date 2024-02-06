@@ -22,7 +22,7 @@ function PlaylistTableCmpt() {
           );
         })}
       </div>
-      <button disabled={playlistData.length < 1}>Download</button>
+      <button id={"downloadBtn"} disabled={playlistData.length < 1}>Download</button>
     </>
   );
 }

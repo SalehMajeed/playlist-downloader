@@ -28,19 +28,23 @@ function UserInputCmpt() {
   };
 
   return (
-    <div>
-      oye
-      <input
+    <div className="main-container">
+      <p className="search-para">Search</p>
+      <input className="input-field"
         type="text"
         placeholder="enter your text"
         value={userInput}
         onChange={HandleInput}
       />
       <br />
-      <button onClick={HandleDownload} disabled={loadingData}>
+      <button className="playlist-btn" onClick={HandleDownload} disabled={loadingData}>
         Get Your Playlist
       </button>
-      {loadingData && <h1>Loading....</h1>}
+      {loadingData && (
+        <div className="loading-container">
+          <img src="https://i.gifer.com/ZKZg.gif" alt="loading" />
+        </div>
+      )}
     </div>
   );
 }

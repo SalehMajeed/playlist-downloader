@@ -13,7 +13,7 @@ async function getPlaylistService(data, res) {
 
     const options = {
       mode: "text",
-      pythonPath: "python3",
+      pythonPath: "python",
       pythonOptions: ["-u"],
       scriptPath: backendPath,
       args: [playlistAddress],
