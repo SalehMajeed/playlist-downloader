@@ -85,10 +85,9 @@ function PlaylistTableCmpt() {
           Next
         </button>
       </div>
-      <button disabled={selectedVideos.length === 0} onClick={dataToDownload}>
+      <button id={"downloadBtn"} disabled={playlistData.length < 1} onClick={dataToDownload}>
         Download
       </button>
-      <button onClick={downloadAll}>Download All</button>
     </>
   );
 }
