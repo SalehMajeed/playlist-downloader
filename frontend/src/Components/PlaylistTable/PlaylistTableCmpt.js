@@ -7,6 +7,7 @@ import { download } from "../UserInput/api";
 function PlaylistTableCmpt() {
   const location = useLocation();
   const playlistData = location.state?.data || [];
+  const playlistUrl = location.state?.playlist_url;
   const [selectedVideos, setSelectedVideos] = useState([]);
 
   const itemsPerPage = 10;
@@ -40,42 +41,38 @@ function PlaylistTableCmpt() {
   async function dataToDownload(e) {
     e.preventDefault();
 
-    const data = await download("/download", selectedVideos);
+    await download("/download", { playlistUrl, selectedVideos });
 
-    console.log(data);
-    console.log(selectedVideos);
+    console.log({ playlistUrl, selectedVideos });
   }
 
   function downloadAll(e) {
     e.preventDefault();
 
-    const allUrls = playlistData.map((video) => video.url);
-
-    console.log(allUrls);
+    console.log({ playlistUrl, playlistData });
   }
 
   return (
     <>
       <div id={"playlist-container"}>
-        <ul>
-          {playlistData.slice(startIndex, endIndex).map((playlistState, id) => {
-            return (
-              <li key={playlistState.id} onChange={selectVideo}>
-                <span>
-                  <input type="checkbox" data-url={playlistState.url} />
-                </span>
-                <span>{id + startIndex + 1}</span>
-                <span>{playlistState.title}</span>
-                <span>{convertIntoTimeLine(playlistState.duration)}</span>
+        {playlistData.slice(startIndex, endIndex).map((playlistState, id) => {
+          return (
+            <ul key={playlistState.id} onChange={selectVideo}>
+              <li>
+                <input type="checkbox" data-url={playlistState.url} />
               </li>
-            );
-          })}
-        </ul>
+              <li>{id + startIndex + 1}</li>
+              <li>{playlistState.title}</li>
+              <li>{convertIntoTimeLine(playlistState.duration)}</li>
+            </ul>
+          );
+        })}
       </div>
       <div>
         <button onClick={handlePrevious} disabled={currentPage === 1}>
           Previous
         </button>
+        <span>{currentPage}</span>
         <button
           onClick={handleNext}
           disabled={

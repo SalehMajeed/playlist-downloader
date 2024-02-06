@@ -8,17 +8,11 @@ async function fetchMetadatalist(playlistLink) {
 }
 
 async function download(playlistLink, dataArr) {
-  // console.log(playlistLink, dataArr);
-
   try {
     // const requestBody = {
     //   dataArr,
     // };
-
-    console.log(generateApiUrl(playlistLink));
-
     const data = await axios.post(generateApiUrl(playlistLink), dataArr);
-    console.log(data);
     return data;
   } catch (error) {
     console.log(error);

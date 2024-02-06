@@ -22,7 +22,9 @@ function UserInputCmpt() {
       );
       const reqData = fetchedReq.data;
       setLoadingData(false);
-      navigate(ROUTES.SHOW_METADATA_LIST, { state: { data: reqData } });
+      navigate(ROUTES.SHOW_METADATA_LIST, {
+        state: { data: reqData, playlist_url },
+      });
     }
     setUserInput("");
   };
