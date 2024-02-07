@@ -8,19 +8,21 @@
   overflow: hidden;
   box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.1);
   padding: 20px;
+  height: 520px;
 }
 
 ul {
+  display: flex;
   list-style-type: none;
   margin: 0;
   padding: 0;
-  display: flex;
-  border: 1px solid #ccc;
+  border-bottom: 1px solid #dfdcdc;
+  transition: background-color 0.3s ease;
 }
 
 li {
-  width: 100%;
-  padding: 10px;
+  padding: 15px;
+  flex: 1;
   text-align: center;
 }
 
@@ -45,24 +47,66 @@ ul:hover {
   background-color: #d8d6d6;
 }
 
+.download-btn-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
 #downloadBtn {
   margin-top: 20px;
-  padding: 12px 24px;
-  background-color: #4caf50;
+  padding: 12px 30px 12px 30px;
+  background-color: #3498db;
   color: #fff;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease;
   margin-bottom: 50px;
-  float: right;
-  margin-right: 170px;
+  margin-left: 30px;
 }
+
 
 
 #downloadBtn:disabled {
   background-color: #ccc;
   cursor: not-allowed;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.button-container span {
+  text-align: center;
+  font-size: 20px;
+  color: red;
+}
+
+.previous-btn,
+.next-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.previous-btn:hover,
+.next-btn:hover {
+  background-color: #0056b3;
+}
+
+.previous-btn:disabled,
+.next-btn:disabled {
+  background-color: #c6c3c3;
+  color: #323232;
 }
 
 @media screen and (max-width: 768px) {

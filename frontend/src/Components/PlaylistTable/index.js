@@ -1,1 +1,1 @@
-export {default} from "./PlaylistTableCmpt"
+export { default } from "./PlaylistTableCmpt"
