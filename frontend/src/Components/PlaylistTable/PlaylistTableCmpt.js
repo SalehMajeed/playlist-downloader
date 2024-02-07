@@ -68,12 +68,12 @@ function PlaylistTableCmpt() {
           );
         })}
       </div>
-      <div>
-        <button onClick={handlePrevious} disabled={currentPage === 1}>
+      <div className="button-container">
+        <button className="previous-btn" onClick={handlePrevious} disabled={currentPage === 1}>
           Previous
         </button>
         <span>{currentPage}</span>
-        <button
+        <button className="next-btn"
           onClick={handleNext}
           disabled={
             currentPage === Math.ceil(playlistData.length / itemsPerPage)
@@ -82,9 +82,11 @@ function PlaylistTableCmpt() {
           Next
         </button>
       </div>
+      <div className="download-btn-container" >
       <button id={"downloadBtn"} disabled={playlistData.length < 1} onClick={dataToDownload}>
         Download
       </button>
+      </div>
     </>
   );
 }

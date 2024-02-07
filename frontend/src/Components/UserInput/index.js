@@ -1,1 +1,1 @@
-export {default} from "./UserInputCmpt";
+export { default } from "./UserInputCmpt";
