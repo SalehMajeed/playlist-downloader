@@ -5,7 +5,7 @@ import { PythonShell } from "python-shell";
 async function getPlaylistService(data, res) {
   const __filename = fileURLToPath(import.meta.url);
   const __dirname = dirname(__filename);
-  const backendPath = join(__dirname, "..", "../backend/python_app");
+  const backendPath = join(__dirname, "../python_app");
   console.log(backendPath);
   try {
     const playlistAddress =
