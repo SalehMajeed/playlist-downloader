@@ -7,7 +7,7 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      - ./backend/node_modules
+      - ./backend/node_modules:/usr/youtube-playlist-downloader/node_modules
       - ./backend:/usr/youtube-playlist-downloader
   playlist-ui:
     build:
@@ -16,5 +16,5 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - ./frontend/node_modules
+      - ./frontend/node_modules:/usr/youtube-playlist-downloader-ui/node_modules
       - ./frontend:/usr/youtube-playlist-downloader-ui
