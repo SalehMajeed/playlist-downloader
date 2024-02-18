@@ -28,6 +28,8 @@ function PlaylistTableCmpt() {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = Math.min(startIndex + itemsPerPage, playlistData.length);
 
+  const pageData = playlistData.slice(startIndex, endIndex);
+
   function selectVideo(e) {
     const url = e.target.dataset.url;
 
@@ -52,9 +54,15 @@ function PlaylistTableCmpt() {
     console.log({ playlistUrl, playlistData });
   }
 
+  function selectAll(e) {
+    console.log(e.target.checked);
+    console.log(pageData);
+  }
+
   return (
     <>
       <div id={"playlist-container"}>
+        <input type="checkbox" onChange={selectAll} />
         {playlistData.slice(startIndex, endIndex).map((playlistState, id) => {
           return (
             <ul key={playlistState.id} onChange={selectVideo}>
@@ -69,11 +77,16 @@ function PlaylistTableCmpt() {
         })}
       </div>
       <div className="button-container">
-        <button className="previous-btn" onClick={handlePrevious} disabled={currentPage === 1}>
+        <button
+          className="previous-btn"
+          onClick={handlePrevious}
+          disabled={currentPage === 1}
+        >
           Previous
         </button>
         <span>{currentPage}</span>
-        <button className="next-btn"
+        <button
+          className="next-btn"
           onClick={handleNext}
           disabled={
             currentPage === Math.ceil(playlistData.length / itemsPerPage)
@@ -82,10 +95,17 @@ function PlaylistTableCmpt() {
           Next
         </button>
       </div>
-      <div className="download-btn-container" >
-      <button id={"downloadBtn"} disabled={playlistData.length < 1} onClick={dataToDownload}>
-        Download
-      </button>
+      <div className="download-btn-container">
+        <button
+          className="downloadBtn"
+          disabled={selectedVideos.length < 1}
+          onClick={dataToDownload}
+        >
+          Download
+        </button>
+        <button className="downloadBtn" onClick={downloadAll}>
+          Download All
+        </button>
       </div>
     </>
   );
