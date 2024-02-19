@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router";
 import "./css/index.css";
 import { convertIntoTimeLine } from "../../Utils";
@@ -9,33 +9,50 @@ function PlaylistTableCmpt() {
   const playlistData = location.state?.data || [];
   const playlistUrl = location.state?.playlist_url;
   const [selectedVideos, setSelectedVideos] = useState([]);
+  const [pageData, setPageData] = useState(playlistData);
+
+  const [isSelectAll, setIsSelectAll] = useState(false);
 
   const itemsPerPage = 10;
   const [currentPage, setCurrentPage] = useState(1);
 
-  const handlePrevious = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-    }
-  };
-
-  const handleNext = () => {
-    if (currentPage < Math.ceil(playlistData.length / itemsPerPage)) {
-      setCurrentPage(currentPage + 1);
-    }
-  };
-
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = Math.min(startIndex + itemsPerPage, playlistData.length);
 
-  const pageData = playlistData.slice(startIndex, endIndex);
+  function handlePrevious() {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  }
+
+  function handleNext() {
+    if (currentPage < Math.ceil(playlistData.length / itemsPerPage)) {
+      setCurrentPage(currentPage + 1);
+    }
+  }
+
+  useEffect(() => {
+    checkSelectAll();
+
+    // const page = playlistData.slice(startIndex, endIndex);
+
+    // setPageData(page);
+  }, [startIndex, endIndex]);
+
+  function checkSelectAll() {
+    setIsSelectAll(
+      pageData.slice(startIndex, endIndex).every((item) => item.checked)
+    );
+  }
 
   function selectVideo(e) {
     const url = e.target.dataset.url;
 
+    checkSelectAll();
     if (e.target.checked) {
       setSelectedVideos((videos) => [...videos, url]);
     } else {
+      setIsSelectAll(false);
       setSelectedVideos((videos) => videos.filter((video) => video !== url));
     }
   }
@@ -50,24 +67,77 @@ function PlaylistTableCmpt() {
 
   function downloadAll(e) {
     e.preventDefault();
-
     console.log({ playlistUrl, playlistData });
   }
 
+  // function selectAll(e) {
+  //   setSelectedVideos([]);
+  //   if (e.target.checked) {
+  //     const page = pageData.map((item) => {
+  //       setSelectedVideos((videos) => [...videos, item.url]);
+  //       return { ...item, checked: true };
+  //     });
+
+  //     setIsSelectAll(true);
+  //     setPageData(page);
+  //   } else {
+  //     const page = pageData.map((item) => {
+  //       setSelectedVideos([]);
+  //       return { ...item, checked: false };
+  //     });
+  //     setIsSelectAll(false);
+  //     setPageData(page);
+  //   }
+  // }
+
   function selectAll(e) {
-    console.log(e.target.checked);
-    console.log(pageData);
+    if (e.target.checked) {
+      const page = pageData.map((item, index) => {
+        if (index >= startIndex && index < endIndex && !item.checked) {
+          setSelectedVideos((videos) => [...videos, item.url]);
+          return { ...item, checked: true };
+        } else {
+          return { ...item };
+        }
+      });
+
+      setIsSelectAll(true);
+      setPageData(page);
+    } else {
+      const page = pageData.map((item, index) => {
+        if (index >= startIndex && index < endIndex) {
+          setSelectedVideos((videos) =>
+            videos.filter((video) => video !== item.url)
+          );
+          return { ...item, checked: false };
+        } else {
+          return { ...item };
+        }
+      });
+      setIsSelectAll(false);
+      setPageData(page);
+    }
   }
 
   return (
     <>
       <div id={"playlist-container"}>
-        <input type="checkbox" onChange={selectAll} />
-        {playlistData.slice(startIndex, endIndex).map((playlistState, id) => {
+        <label>
+          <input type="checkbox" checked={isSelectAll} onChange={selectAll} />
+          <span>select all</span>
+        </label>
+        {pageData.slice(startIndex, endIndex).map((playlistState, id) => {
           return (
             <ul key={playlistState.id} onChange={selectVideo}>
               <li>
-                <input type="checkbox" data-url={playlistState.url} />
+                <input
+                  type="checkbox"
+                  data-url={playlistState.url}
+                  onChange={() => {
+                    playlistState.checked = !playlistState.checked;
+                  }}
+                  checked={playlistState.checked}
+                />
               </li>
               <li>{id + startIndex + 1}</li>
               <li>{playlistState.title}</li>
