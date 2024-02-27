@@ -8,7 +8,7 @@
   overflow: hidden;
   box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.1);
   padding: 20px;
-  height: 520px;
+  min-height: 520px;
 }
 
 ul {
@@ -51,10 +51,9 @@ ul:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-
 }
 
-#downloadBtn {
+.downloadBtn {
   margin-top: 20px;
   padding: 12px 30px 12px 30px;
   background-color: #3498db;
@@ -67,9 +66,7 @@ ul:hover {
   margin-left: 30px;
 }
 
-
-
-#downloadBtn:disabled {
+.downloadBtn:disabled {
   background-color: #ccc;
   cursor: not-allowed;
 }
@@ -116,7 +113,7 @@ ul:hover {
     padding: 15px;
   }
 
-  #downloadBtn {
+  .downloadBtn {
     margin-right: 20px;
   }
 }
@@ -130,11 +127,10 @@ ul:hover {
     font-size: 12px;
   }
 
-  #downloadBtn {
+  .downloadBtn {
     margin-right: 10px;
   }
 }
-
 
 @media screen and (max-width: 480px) {
   #playlist-container {
@@ -145,7 +141,7 @@ ul:hover {
     font-size: 12px;
   }
 
-  #downloadBtn {
+  .downloadBtn {
     margin-right: 10px;
   }
 }
