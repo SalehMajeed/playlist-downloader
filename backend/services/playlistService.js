@@ -1,37 +1,37 @@
-import { fileURLToPath } from "url";
-import { dirname, join } from "path";
-import { PythonShell } from "python-shell";
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
+import { PythonShell } from 'python-shell';
 
 async function getPlaylistService(data, res) {
-  const __filename = fileURLToPath(import.meta.url);
-  const __dirname = dirname(__filename);
-  const backendPath = join(__dirname, "../python_app");
-  console.log(backendPath);
-  try {
-    const playlistAddress =
-      "https://www.youtube.com/playlist?list=PLta1A4corVqsTLierHoDrPxlnSSyoZ8J_";
+    const __filename = fileURLToPath(import.meta.url);
+    const __dirname = dirname(__filename);
+    const backendPath = join(__dirname, '../python_app');
+    console.log(backendPath);
+    try {
+        const playlistAddress =
+      'https://www.youtube.com/playlist?list=PLta1A4corVqsTLierHoDrPxlnSSyoZ8J_';
 
-    const options = {
-      mode: "text",
-      pythonPath: "python",
-      pythonOptions: ["-u"],
-      scriptPath: backendPath,
-      args: [playlistAddress],
-    };
+        const options = {
+            mode: 'text',
+            pythonPath: 'python',
+            pythonOptions: ['-u'],
+            scriptPath: backendPath,
+            args: [playlistAddress],
+        };
 
-    const result = await PythonShell.run("index.py", options);
-    const jsonData = JSON.parse(result);
-    res.send({ data: jsonData });
-  } catch (err) {
-    console.log(err);
-    res.send(err);
-  }
+        const result = await PythonShell.run('index.py', options);
+        const jsonData = JSON.parse(result);
+        res.send({ data: jsonData });
+    } catch (err) {
+        console.log(err);
+        res.send(err);
+    }
 }
 
 async function getDownloadPlaylistService(req, res) {
-  console.log(req.body);
+    console.log(req.body);
 
-  res.status(200).json(req.body);
+    res.status(200).json(req.body);
 }
 
 export default { getPlaylistService, getDownloadPlaylistService };

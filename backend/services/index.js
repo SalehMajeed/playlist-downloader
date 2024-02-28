@@ -1,5 +1,5 @@
-import playlistService from "./playlistService.js";
+import playlistService from './playlistService.js';
 
 export default {
-  playlistService,
+    playlistService,
 };

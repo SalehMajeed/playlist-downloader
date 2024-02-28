@@ -1,7 +1,7 @@
-import playListRoute from "./playlistRoute.js";
+import playListRoute from './playlistRoute.js';
 
 const routes = {
-  playListRoute,
+    playListRoute,
 };
 
 export default routes;

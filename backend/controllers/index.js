@@ -1,3 +1,3 @@
-import playlistController from "./playlistController.js";
+import playlistController from './playlistController.js';
 
 export default { playlistController };
